@@ -1,0 +1,1 @@
+angular.module("fcc-nightlife", ["angular-meteor", "ui.router"]);
