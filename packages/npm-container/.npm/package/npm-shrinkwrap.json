@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "yelp": {
+      "version": "0.2.0",
+      "dependencies": {
+        "oauth": {
+          "version": "0.9.14"
+        }
+      }
+    }
+  }
+}

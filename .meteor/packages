@@ -21,8 +21,10 @@ insecure                # Allow all DB writes from clients (for prototyping)
 angular
 angularui:angular-ui-router
 accounts-twitter
-twbs:bootstrap
-ian:accounts-ui-bootstrap-3
 gwendall:auth-client-callbacks
 liberation:shareit
-ssing128:yelp-meteor
+meteorhacks:npm
+
+
+npm-container
+ian:accounts-ui-bootstrap-3

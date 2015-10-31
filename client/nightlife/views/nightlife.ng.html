@@ -10,5 +10,24 @@
             </div>
         </div>
     </form>
-    
+    <p class="text-center" ng-show="searching">Searching...</p>
+    <ul class="list-group">
+        <li ng-repeat="bar in bars" class="list-group-item clearfix">
+            <hr>
+            <div class="row">
+                <div class="col-sm-9">
+                    <a ng-href="{{bar.url}}" target="_blank" class="list-group-item text-left clearfix">
+                        <img ng-src="{{bar.image}}" class="pull-left">
+                        <h3 class="list-group-item-heading">{{bar.name}}</h3>
+                        <p class="list-group-item-text">{{bar.text}}</p>
+                    </a>
+                </div>
+                <div class="col-sm-3">
+                    <span class="form-control">123</span>
+                    <button ng-click="countMeIn();" class="btn btn-primary btn-block">Count me in!</button>
+                </div>
+            </div>
+            <hr>
+        </li>
+    </ul>
 </div>
