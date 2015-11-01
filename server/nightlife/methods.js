@@ -61,6 +61,34 @@ Meteor.methods({
                 return true;
             }
         }
+    },
+    
+    getBarsGoingCount: function (idArr) {
+        var result = [];
+        for (var i =0; i < idArr.length; i++) {
+            var targetBar = Bars.findOne({bar: idArr[i]});
+            if (targetBar) {
+                result.push(targetBar.goingCount);
+            } else {
+                result.push(0);
+            }
+        }
+        return result;
+    },
+    
+    getMyGoingPlaces: function () {
+        var user;
+        if (Meteor.userId()) {
+            user = Meteor.userId();
+        } else {
+            user = (this.connection.httpHeaders["x-forwarded-for"]).split(",")[0];
+        }
+        var me = UserGoing.findOne({"user": user});
+        if (me) {
+            return me.goingPlaces;
+        } else {
+            return [];
+        }
     }
     
 });
