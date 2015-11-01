@@ -2,7 +2,6 @@ angular.module("fcc-nightlife").controller("nightlifeCtrl", ["$scope", "$meteor"
 
     function ($scope, $meteor) {
         $scope.loggedIn = Meteor.userId() ? true : false;
-        
         $scope.searching = false;
         $scope.bars = [];
         $scope.searchBars = function (searchString) {
@@ -30,15 +29,34 @@ angular.module("fcc-nightlife").controller("nightlifeCtrl", ["$scope", "$meteor"
                 });
             });
         };
-        $scope.countMeIn = function (id) {
-            Meteor.call("countMeIn", id, function (error, result) {
+        $scope.countMeIn = function (bar, remove) {
+            Meteor.call("countMeIn", bar.id, function (error, result) {
                 if (error) {
                     window.alert(error);
                 }
+                
+                if (remove) {
+                    bar.iAmGoing = false;
+                    bar.goingCount -= 1;
+                } else {
+                    bar.iAmGoing = true;
+                    bar.goingCount += 1;
+                }
+                    
                 $scope.$apply();
             });
         };
-        
+        Accounts.onLogin(function () {
+            $scope.loggedIn = true;
+            if ($scope.bars) {
+                Meteor.call("getMyGoingPlaces", function (error, myGoingPlaces) {
+                    for (var i = 0; i < $scope.bars.length; i++) {
+                        $scope.bars[i].iAmGoing = myGoingPlaces.indexOf($scope.bars[i].id) !== -1;
+                    }
+                    $scope.$apply();
+                });
+            }
+            $scope.$apply();
+        });
     }
-    
 ]);

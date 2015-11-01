@@ -24,8 +24,8 @@
                 </div>
                 <div class="col-sm-3">
                     <span class="form-control">{{bar.goingCount}}</span>
-                    <button ng-click="countMeIn(bar.id)" class="btn btn-primary btn-block" ng-disabled="bar.iAmGoing">{{ bar.iAmGoing ? "I am going here!" : "Count me in!"}}</button>
-                    <button ng-show="loggedIn && bar.iAmGoing" ng-click="countMeIn(bar.id)" class="btn btn-danger btn-block">Remove me from RSVP.</button>
+                    <button ng-click="countMeIn(bar, false)" class="btn btn-primary btn-block" ng-disabled="bar.iAmGoing">{{ bar.iAmGoing ? "I am going here!" : "Count me in!"}}</button>
+                    <button ng-show="loggedIn && bar.iAmGoing" ng-click="countMeIn(bar, true)" class="btn btn-danger btn-block">Remove me from RSVP.</button>
                 </div>
             </div>
             <hr>
