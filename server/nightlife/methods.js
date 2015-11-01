@@ -29,15 +29,36 @@ Meteor.methods({
         if (!id) {
             throw new Meteor.errow(400, "Bad Request");
         }
-        var targetBar = Bars.findOne({"bar": id});
+        
+        var user;
         if (Meteor.userId()) {
-            
+            user = Meteor.userId();
         } else {
-            
+            user = (this.connection.httpHeaders["x-forwarded-for"]).split(",")[0];
+        }
+        
+        var targetUser = UserGoing.findOne({"user": user});
+        var targetBar = Bars.findOne({"bar": id});
+        
+        if (!targetUser) {
+            UserGoing.insert({user: user, goingPlaces: []});
+            targetUser = UserGoing.findOne({"user": user});
+        }
+        
+        
+        if (targetUser.goingPlaces.indexOf(id) === -1) {
+            UserGoing.update(targetUser, {$push: {goingPlaces: id}});
             if (targetBar) {
-                return Bars.update(targetBar, {$inc: {going: 1}});
+                return Bars.update(targetBar, {$inc: {goingCount: 1}});
             } else {
-                return Bars.insert({"bar": id, "going": 1});
+                return Bars.insert({bar: id, goingCount: 1});
+            }
+        } else {
+            if (Meteor.userId()) {
+                UserGoing.update(targetUser, {$pull: {goingPlaces: id}});
+                return Bars.update(targetBar, {$inc: {goingCount: -1}});
+            } else {
+                return true;
             }
         }
     }
