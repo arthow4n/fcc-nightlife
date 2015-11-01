@@ -1,4 +1,4 @@
-var yelp = Meteor.npmRequire("yelp").createClient(Meteor.settings.yelpAPI);
+var yelp = Yelp.createClient(Meteor.settings.yelpAPI);
 
 Meteor.methods({
     

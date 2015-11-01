@@ -21,8 +21,6 @@ angularui:angular-ui-router
 accounts-twitter
 gwendall:auth-client-callbacks
 liberation:shareit
-meteorhacks:npm
-
-
-npm-container
 ian:accounts-ui-bootstrap-3
+ssing128:yelp-meteor
+meteorhacks:async
