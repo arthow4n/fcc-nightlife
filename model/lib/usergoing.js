@@ -1,0 +1,1 @@
+UserGoing = new Mongo.Collection("usergoing");

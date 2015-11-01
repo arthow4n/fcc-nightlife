@@ -11,9 +11,13 @@ angular.module("fcc-nightlife").controller("nightlifeCtrl", ["$scope", "$meteor"
                 $scope.$apply();
             });
         };
-        $scope.countMeIn = function () {
-            console.log("OK");
-        }
+        $scope.countMeIn = function (id) {
+            Meteor.call("countMeIn", id, function (error, result) {
+                if (error) {
+                    window.alert(error);
+                }
+            });
+        };
         
     }
     

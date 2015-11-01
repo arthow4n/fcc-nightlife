@@ -1,0 +1,1 @@
+Bars = new Mongo.Collection("bars");

@@ -12,6 +12,7 @@ Meteor.methods({
                 }
                 for (var i = 0; i < limitNum; i++) {
                     var obj = {};
+                    obj.id = data.businesses[i].id;
                     obj.name = data.businesses[i].name;
                     obj.image = data.businesses[i].image_url;
                     obj.text = data.businesses[i].snippet_text;
@@ -24,8 +25,21 @@ Meteor.methods({
         return yelpCall.result;
     },
     
-    getUserGoing: function () {
-        
+    countMeIn: function(id) {
+        if (!id) {
+            throw new Meteor.errow(400, "Bad Request");
+        }
+        var targetBar = Bars.findOne({"bar": id});
+        if (Meteor.userId()) {
+            
+        } else {
+            
+            if (targetBar) {
+                return Bars.update(targetBar, {$inc: {going: 1}});
+            } else {
+                return Bars.insert({"bar": id, "going": 1});
+            }
+        }
     }
     
 });
